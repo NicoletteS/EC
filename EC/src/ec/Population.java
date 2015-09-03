@@ -32,7 +32,7 @@ public class Population {
 	}
 	
 	public void selectParents() {
-		
+		UniformCrossover UC = new Uniform
 	}
 	
 }
