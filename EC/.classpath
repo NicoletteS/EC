@@ -3,7 +3,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/OSGi%Minimum-1.2"/>
 	<classpathentry kind="lib" path="D:/VU/MASTER/Evolutionary Computing/Codes/EC/contest.jar"/>
-	<classpathentry kind="lib" path="D:/VU/MASTER/Evolutionary Computing/Codes/EC/testrun.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nicolette/Downloads/submission.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
