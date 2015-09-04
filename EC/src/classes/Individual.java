@@ -1,4 +1,4 @@
-package ec;
+package classes;
 
 import org.vu.contest.ContestEvaluation;
 
@@ -12,7 +12,7 @@ public class Individual {
 	static private double MAX_VALUE = 5;
 	
 	private ContestEvaluation evaluation_;
-	private double[] genes;
+	private double[] genes = new double[GEN_LENGTH];
 	private double fitness;
 	
 	public Individual() {
@@ -21,7 +21,7 @@ public class Individual {
 	//Generate random individual
 	public void generateIndividual(ContestEvaluation eval) {
 		evaluation_ = eval;
-		genes = new double[GEN_LENGTH];
+//		genes = new double[GEN_LENGTH];
 		Random rand = new Random();
 		for (int i=0; i<GEN_LENGTH;i++) {
 			double gene = MIN_VALUE + (MAX_VALUE - MIN_VALUE) * rand.nextDouble();
@@ -50,6 +50,7 @@ public class Individual {
 		return genes[i];
 	}
 	
+
 	public void setGene(int i, double d) {
 		if(d > MAX_VALUE) {
 			genes[i] = (d-MIN_VALUE)%(MAX_VALUE-MIN_VALUE)+MIN_VALUE;
@@ -58,7 +59,7 @@ public class Individual {
 		} else {
 			genes[i] = d;
 		}
-	}
+	} 
 	
 	public double getFitness() {
 		return fitness;

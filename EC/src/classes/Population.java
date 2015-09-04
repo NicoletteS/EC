@@ -1,10 +1,10 @@
-package ec;
+package classes;
 
 import org.vu.contest.ContestEvaluation;
 
 import java.util.Arrays;
 import java.util.Random;
-import ec.Individual;
+import classes.Individual;
 
 public class Population {
 

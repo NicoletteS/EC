@@ -1,11 +1,11 @@
-package ec;
+package classes;
 
 import org.vu.contest.ContestEvaluation;
 
 import java.util.Random;
 import java.util.Arrays;
 
-import ec.Individual;
+import classes.Individual;
 
 public class Crossover  {
 

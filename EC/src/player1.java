@@ -1,37 +1,39 @@
-package ec;
-
 import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
 
 import java.util.Random;
 import java.util.Properties;
 
-public class SubmissionTemplate
+import classes.Individual;
+import classes.Crossover;
+import classes.Population;
+
+public class player1 implements ContestSubmission
 {
-	Random rnd_;
-	ContestEvaluation evaluation_;
+	private Random rnd_;
+	private ContestEvaluation evaluation_;
 	private int evaluations_limit_;
+	int popSize = 10;
 	
-	public SubmissionTemplate()
+
+	public player1()
 	{
 		rnd_ = new Random();
 	}
-	
+
 	public void setSeed(long seed)
 	{
 		// Set seed of algortihms random process
 		rnd_.setSeed(seed);
 	}
 
-	//TODO Used to pass evaluation object to algorithm
 	public void setEvaluation(ContestEvaluation evaluation)
 	{
 		// Set evaluation problem used in the run
 		evaluation_ = evaluation;
-		
+
 		// Get evaluation properties
 		Properties props = evaluation.getProperties();
-		
 		evaluations_limit_ = Integer.parseInt(props.getProperty("Evaluations"));
 		boolean isMultimodal = Boolean.parseBoolean(props.getProperty("Multimodal"));
 		boolean hasStructure = Boolean.parseBoolean(props.getProperty("Regular"));
@@ -43,16 +45,20 @@ public class SubmissionTemplate
 		}else{
 			// Do sth else
 		}
-		// Property keys depend on specific evaluation
-		// E.g. double param = Double.parseDouble(props.getProperty("property_name"));
-
-		// Do sth with property values, e.g. specify relevant settings of your algorithm
 	}
-	
+
 	public void run()
 	{
+		Population pop = new Population(popSize, evaluation_, evaluations_limit_);
+		pop.evalPopulation();
 		// Run your algorithm here
 
+	
+		while (pop.getEvaluation() < evaluations_limit_) {
+			pop = Crossover.evolve(pop);
+		}
+		
+/*		
 		int evals = 0;
 		while(evals<evaluations_limit_){
 			// Select parents
@@ -61,15 +67,6 @@ public class SubmissionTemplate
 	//		Double fitness = evaluation_.evaluate(child);
 			evals++;
 			// Select survivors
-		}
-		
-		// Getting data from evaluation problem (depends on the specific evaluation implementation)
-		// E.g. getting a vector of numbers
-		// Vector<Double> data = (Vector<Doulbe>)evaluation_.getData("trainingset1");
-
-		// Evaluating your results
-		// E.g. evaluating a series of true/false predictions
-		// boolean pred[] = ...
-		// Double score = (Double)evaluation_.evaluate(pred);
+		} */
 	}
 }
