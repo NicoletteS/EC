@@ -12,38 +12,61 @@ public class Individual {
 	static private double MAX_VALUE = 5;
 	
 	private ContestEvaluation evaluation_;
-	private double[] genotype;
-	private double fenotype;
+	private double[] genes;
+	private double fitness;
 	
 	public Individual() {
 		
 	}
-	
-	public Individual(ContestEvaluation eval) {
+	//Generate random individual
+	public void generateIndividual(ContestEvaluation eval) {
 		evaluation_ = eval;
-		genotype = new double[GEN_LENGTH];
-		Arrays.fill(genotype, getRandomGen());
+		genes = new double[GEN_LENGTH];
+		Random rand = new Random();
+		for (int i=0; i<GEN_LENGTH;i++) {
+			double gene = MIN_VALUE + (MAX_VALUE - MIN_VALUE) * rand.nextDouble();
+			genes[i] = gene;
+		}
+//		Arrays.fill(genes, getRandomGen());
 	}
 	
-	public Individual(ContestEvaluation evaluation, double[] genotype) {
+	//Get genotype
+	public void getGenotype(ContestEvaluation evaluation, double[] genotype) {
 		evaluation_ = evaluation;
-		this.genotype = genotype;
+		this.genes = genotype;
 	}
 	
+	//Get fitness level
 	public void evaluate() {
-		fenotype = ((Double) evaluation_.evaluate(genotype)).doubleValue();
+		fitness = ((Double) evaluation_.evaluate(genes)).doubleValue();
 	}
 	
-	private double getRandomGen() {
+/*	private double getRandomGen() {
 		Random rand = new Random();
 		return MIN_VALUE + (MAX_VALUE - MIN_VALUE) * rand.nextDouble();
+	} */
+	
+	public double getGene(int i) {
+		return genes[i];
 	}
 	
-	private double getGene(int i) {
-		return genotype[i];
+	public void setGene(int i, double d) {
+		if(d > MAX_VALUE) {
+			genes[i] = (d-MIN_VALUE)%(MAX_VALUE-MIN_VALUE)+MIN_VALUE;
+		} else if (d < MIN_VALUE) {
+			genes[i] = (d-MIN_VALUE)%(MAX_VALUE-MIN_VALUE)+MAX_VALUE;
+		} else {
+			genes[i] = d;
+		}
 	}
 	
-	public double getFenotype() {
-		return fenotype;
+	public double getFitness() {
+		return fitness;
 	}
+	
+	public int size() {
+        return genes.length;
+    }
+
+	
 }
