@@ -12,14 +12,15 @@ public class Individual {
 	static private double MAX_VALUE = 5;
 	
 	private ContestEvaluation evaluation_;
-	private double[] genes = new double[GEN_LENGTH];
+	private double[] genes;
 	private double fitness;
 	
 	public Individual() {
-		
+		genes =  new double[GEN_LENGTH];
 	}
 	//Generate random individual
 	public void generateIndividual(ContestEvaluation eval) {
+//		System.out.println("generateInd");
 		evaluation_ = eval;
 //		genes = new double[GEN_LENGTH];
 		Random rand = new Random();
@@ -32,13 +33,22 @@ public class Individual {
 	
 	//Get genotype
 	public void getGenotype(ContestEvaluation evaluation, double[] genotype) {
+		System.out.println("getGene class");
 		evaluation_ = evaluation;
 		this.genes = genotype;
 	}
 	
 	//Get fitness level
 	public void evaluate() {
-		fitness = ((Double) evaluation_.evaluate(genes)).doubleValue();
+		System.out.println("evaluate class");
+		if(evaluation_ == null){
+			System.out.println("IS NULL");
+			System.exit(1);
+		}
+		Object test =  evaluation_.evaluate(genes);
+		fitness = ((Double)test).doubleValue();
+		System.out.println(fitness);
+		
 	}
 	
 /*	private double getRandomGen() {
@@ -47,11 +57,13 @@ public class Individual {
 	} */
 	
 	public double getGene(int i) {
+		//CHECK
 		return genes[i];
 	}
 	
 
 	public void setGene(int i, double d) {
+	//CHECK	
 		if(d > MAX_VALUE) {
 			genes[i] = (d-MIN_VALUE)%(MAX_VALUE-MIN_VALUE)+MIN_VALUE;
 		} else if (d < MIN_VALUE) {
@@ -62,6 +74,7 @@ public class Individual {
 	} 
 	
 	public double getFitness() {
+		//CHECK
 		return fitness;
 	}
 	

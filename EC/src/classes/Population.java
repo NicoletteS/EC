@@ -14,16 +14,44 @@ public class Population {
 	private int evaluations;
 	private int evaluations_limit_;
 	
+	public Population(Population pop){
+		this.population = new Individual[pop.size()];
+		this.populationSize = pop.size();
+		this.evaluation_ = pop.getContestEvaluation();
+		this.evaluations_limit_ = pop.evaluations_limit_-pop.getEvaluation();
+		
+			for(int i=0; i<populationSize;i++) {
+			
+			Individual ind = new Individual();
+			if (evaluation_ == null){
+				System.out.println("Al niet gevonden");
+			
+			}
+			ind.generateIndividual(evaluation_);
+			addIndividual(ind, i);
+		}
+		System.out.println("TEST "+ this.evaluations);
+	}
+	
+	
+	public ContestEvaluation getContestEvaluation(){
+		
+		return this.evaluation_;
+	}
 	public Population(int populationSize) {
+		evaluations = 5;
 		if (populationSize == 0) {
+	//		System.out.println("POPclass pop=0");
 			
 		} else {
 			this.population = new Individual[populationSize];
+	//		System.out.println("POPclass1");
 		}
 		this.populationSize = populationSize;
-	}
+	} 
 	
 	public Population(int populationSize, ContestEvaluation eval, int evalLimit) {
+	//	System.out.println("POPCLASS2");
 		evaluation_ = eval;
 		evaluations_limit_ = evalLimit;
 		evaluations = 0;
@@ -31,6 +59,7 @@ public class Population {
 		population = new Individual[populationSize];
 		
 		for(int i=0; i<populationSize;i++) {
+			
 			Individual ind = new Individual();
 			ind.generateIndividual(evaluation_);
 			addIndividual(ind, i);
@@ -40,14 +69,18 @@ public class Population {
 	}
 	
 	public void addIndividual(Individual ind, int i) {
+		//CHECK
 		population[i] = ind;
 	}
 	
 	public void evalPopulation() {
 		for (int i=0; i<population.length && evaluations < evaluations_limit_; i++) {
 			population[i].evaluate();
+			System.out.println("Eval: " + evaluations);
 			evaluations++;
 		}
+		//Kill of lowest individual
+	//	evolve();
 	}
 	/*
 	public void selectParents() {
@@ -59,11 +92,16 @@ public class Population {
 		return evaluations;
 	}
 	
+	public int getEvaluationLimit() {
+		return evaluations_limit_;
+	}
+	
 	public Individual getIndividual(int i) {
 		return population[i];
 	}
 	
 	public Individual getFittest() {
+		//CHECK
 		Individual fittest = population[0];
 		for (int i=0; i< size(); i++) {
 			if (fittest.getFitness() <= getIndividual(i).getFitness()) {
@@ -71,6 +109,7 @@ public class Population {
 			}
 	//		fittest = population[population.length-i-1];
 		}
+		//CHECK
 		return fittest;
 	}
 	

@@ -13,7 +13,7 @@ public class player1 implements ContestSubmission
 	private Random rnd_;
 	private ContestEvaluation evaluation_;
 	private int evaluations_limit_;
-	int popSize = 10;
+	int popSize = 10000;
 	
 
 	public player1()
@@ -53,9 +53,12 @@ public class player1 implements ContestSubmission
 		pop.evalPopulation();
 		// Run your algorithm here
 
-	
-		while (pop.getEvaluation() < evaluations_limit_) {
+	//	int currentEvalstatus = ;
+		while (pop.getEvaluation() < pop.getEvaluationLimit()) {
+			System.out.println("Hierdan " + pop.getEvaluation() + "/" + evaluations_limit_ );
 			pop = Crossover.evolve(pop);
+			pop.evalPopulation();
+//			System.out.println("evaluated: ");
 		}
 		
 /*		

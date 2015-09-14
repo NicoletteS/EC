@@ -15,15 +15,23 @@ public class Crossover  {
 	private static final boolean elitism = true;
 	private static int EVAL_DONE = 0;
 
+	//Omdat ik gebruik maak van twee Population methodes, gaat het waarschijnlijk mis met het verwijzen naar de juiste constructor. Oplossing nodig
+	//om dit tot 1 constructor te maken?
+	
+	
 	// Evolve population
 	public static Population evolve(Population pop) {
-		Population newPop = new Population(pop.size());
+		Population newPop = new Population(pop);
+		
+		//In deze methode gaat het mis. Het lijkt erop dat zodra de populatie volzit, er een loop ontstaat waarbij er steeds individuals worden toegevoegd
+		//terwijl dit niet meer past. Komt dit door de boolean elitism? Waar laat ik de slechtste fitness afsterven?
 
 		//Keep best individual
 		if (elitism) {
 			newPop.addIndividual(pop.getFittest(), 0);
+	//		LOOP
 		}
-		
+	//	LOOP
 		//crossover population
 		int elitismOffset;
 		if (elitism) {
@@ -51,7 +59,7 @@ public class Crossover  {
 	//crossover parents
 	private static Individual crossover(Individual parent1, Individual parent2) {
 		Individual child = new Individual();
-		
+		//CHECK
 		//loop genes
 		for (int i = 0; i< parent1.size(); i++) {
 			if (Math.random() <= UNIFORM_RATE) {
@@ -77,6 +85,7 @@ public class Crossover  {
 	
 	//Select parents for crossover
 	private static Individual selection(Population pop) {
+		//CHECK
 		//Create pool from population
 		Population pool = new Population(LIFETIME);
 		//Get random parent
@@ -87,6 +96,7 @@ public class Crossover  {
 		}
 		//Get fittest
 		Individual fittest = pool.getFittest();
+		//CHECK
 		return fittest;
 	}
 	
