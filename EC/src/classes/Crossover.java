@@ -9,8 +9,8 @@ import classes.Individual;
 
 public class Crossover  {
 
-	private static final double MUTATION_RATE = 0.5;
-	private static final double UNIFORM_RATE = 0.5;
+	private static final double MUTATION_RATE = 0.03;
+	private static final double UNIFORM_RATE = 0.6;
 	private static final int LIFETIME = 5;
 	private static final boolean elitism = true;
 	private static int EVAL_DONE = 0;
@@ -45,6 +45,7 @@ public class Crossover  {
 			Individual parent1 = selection(pop);
 			Individual parent2 = selection(pop);
 			Individual child = crossover(parent1, parent2);
+//			System.out.println(child.evaluation_);
 			newPop.addIndividual(child, i);
 		}
 		
@@ -58,7 +59,7 @@ public class Crossover  {
 	
 	//crossover parents
 	private static Individual crossover(Individual parent1, Individual parent2) {
-		Individual child = new Individual();
+		Individual child = new Individual(parent1);
 		//CHECK
 		//loop genes
 		for (int i = 0; i< parent1.size(); i++) {

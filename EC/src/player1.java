@@ -10,10 +10,10 @@ import classes.Population;
 
 public class player1 implements ContestSubmission
 {
-	private Random rnd_;
+	public static Random rnd_;
 	private ContestEvaluation evaluation_;
 	private int evaluations_limit_;
-	int popSize = 10000;
+	int popSize = 100;
 	
 
 	public player1()
@@ -23,7 +23,7 @@ public class player1 implements ContestSubmission
 
 	public void setSeed(long seed)
 	{
-		// Set seed of algortihms random process
+		// Set seed of algorithms random process
 		rnd_.setSeed(seed);
 	}
 
@@ -55,9 +55,10 @@ public class player1 implements ContestSubmission
 
 	//	int currentEvalstatus = ;
 		while (pop.getEvaluation() < pop.getEvaluationLimit()) {
-			System.out.println("Hierdan " + pop.getEvaluation() + "/" + evaluations_limit_ );
+//			System.out.println("Hierdan " + pop.getEvaluation() + "/" + evaluations_limit_ );
 			pop = Crossover.evolve(pop);
 			pop.evalPopulation();
+			
 //			System.out.println("evaluated: ");
 		}
 		

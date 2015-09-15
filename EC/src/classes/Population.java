@@ -23,14 +23,14 @@ public class Population {
 			for(int i=0; i<populationSize;i++) {
 			
 			Individual ind = new Individual();
-			if (evaluation_ == null){
-				System.out.println("Al niet gevonden");
-			
-			}
+//			if (evaluation_ == null){
+//				System.out.println("Al niet gevonden");
+//			
+//			}
 			ind.generateIndividual(evaluation_);
 			addIndividual(ind, i);
 		}
-		System.out.println("TEST "+ this.evaluations);
+	//	System.out.println("TEST "+ this.evaluations);
 	}
 	
 	
@@ -57,8 +57,10 @@ public class Population {
 		evaluations = 0;
 		
 		population = new Individual[populationSize];
-		
-		for(int i=0; i<populationSize;i++) {
+		Individual first = new Individual();
+		addIndividual(first, 0);
+		first.evaluation_ = eval;
+		for(int i=1; i<populationSize;i++) {
 			
 			Individual ind = new Individual();
 			ind.generateIndividual(evaluation_);
@@ -76,7 +78,7 @@ public class Population {
 	public void evalPopulation() {
 		for (int i=0; i<population.length && evaluations < evaluations_limit_; i++) {
 			population[i].evaluate();
-			System.out.println("Eval: " + evaluations);
+//			System.out.println("Eval: " + evaluations);
 			evaluations++;
 		}
 		//Kill of lowest individual
