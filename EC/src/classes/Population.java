@@ -13,8 +13,9 @@ public class Population {
 	private ContestEvaluation evaluation_;
 	private int evaluations;
 	private int evaluations_limit_;
+	static public Random random = new Random(System.currentTimeMillis());
 	
-	public Population(Population pop){
+	public Population(Population pop, boolean isMultimodal){
 		this.population = new Individual[pop.size()];
 		this.populationSize = pop.size();
 		this.evaluation_ = pop.getContestEvaluation();
@@ -22,7 +23,7 @@ public class Population {
 		
 			for(int i=0; i<populationSize;i++) {
 			
-			Individual ind = new Individual();
+			Individual ind = new Individual(isMultimodal);
 //			if (evaluation_ == null){
 //				System.out.println("Al niet gevonden");
 //			
@@ -50,19 +51,19 @@ public class Population {
 		this.populationSize = populationSize;
 	} 
 	
-	public Population(int populationSize, ContestEvaluation eval, int evalLimit) {
+	public Population(int populationSize, ContestEvaluation eval, int evalLimit, boolean isMultimodal) {
 	//	System.out.println("POPCLASS2");
 		evaluation_ = eval;
 		evaluations_limit_ = evalLimit;
 		evaluations = 0;
 		
 		population = new Individual[populationSize];
-		Individual first = new Individual();
+		Individual first = new Individual(isMultimodal);
 		addIndividual(first, 0);
 		first.evaluation_ = eval;
 		for(int i=1; i<populationSize;i++) {
 			
-			Individual ind = new Individual();
+			Individual ind = new Individual(isMultimodal);
 			ind.generateIndividual(evaluation_);
 			addIndividual(ind, i);
 		}

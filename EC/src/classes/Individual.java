@@ -2,7 +2,7 @@ package classes;
 
 import org.vu.contest.ContestEvaluation;
 
-import java.util.Random;
+import static classes.Population.random;
 import java.util.Arrays;
 
 public class Individual {
@@ -12,11 +12,16 @@ public class Individual {
 	static private double MAX_VALUE = 5;
 	
 	public ContestEvaluation evaluation_;
-	private double[] genes;
+	private double[] genes = new double[GEN_LENGTH];
 	private double fitness;
 	
-	public Individual() {
-		genes =  new double[GEN_LENGTH];
+	public double CR = 0.1*random.nextGaussian() +0.5;
+	
+	public Individual(boolean isMultimodal) {
+
+		for(int i=0; i<GEN_LENGTH; i++) {
+			genes[i] = random.nextGaussian();
+		}
 	}
 	
 	public Individual(Individual ind) {
@@ -29,12 +34,12 @@ public class Individual {
 //		System.out.println("generateInd");
 		evaluation_ = eval;
 //		genes = new double[GEN_LENGTH];
-		Random rand = new Random();
 		for (int i=0; i<GEN_LENGTH;i++) {
-			double gene = MIN_VALUE + (MAX_VALUE - MIN_VALUE) * rand.nextDouble();
+			double gene = MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble();
 			genes[i] = gene;
 		}
 //		Arrays.fill(genes, getRandomGen());
+//		fitness = (Double) eval.evaluate(genes);
 	}
 	
 	//Get genotype
@@ -78,6 +83,10 @@ public class Individual {
 			genes[i] = d;
 		}
 	} 
+	
+	public void setFitness(double fitness) {
+		this.fitness = fitness;
+	}
 	
 	public double getFitness() {
 		//CHECK

@@ -10,10 +10,11 @@ import classes.Population;
 
 public class player1 implements ContestSubmission
 {
-	public static Random rnd_;
+	public static Random rnd_ = new Random();
 	private ContestEvaluation evaluation_;
 	private int evaluations_limit_;
 	int popSize = 100;
+	boolean isMultimodal;
 	
 
 	public player1()
@@ -35,7 +36,7 @@ public class player1 implements ContestSubmission
 		// Get evaluation properties
 		Properties props = evaluation.getProperties();
 		evaluations_limit_ = Integer.parseInt(props.getProperty("Evaluations"));
-		boolean isMultimodal = Boolean.parseBoolean(props.getProperty("Multimodal"));
+		isMultimodal = Boolean.parseBoolean(props.getProperty("Multimodal"));
 		boolean hasStructure = Boolean.parseBoolean(props.getProperty("Regular"));
 		boolean isSeparable = Boolean.parseBoolean(props.getProperty("Separable"));
 
@@ -49,14 +50,14 @@ public class player1 implements ContestSubmission
 
 	public void run()
 	{
-		Population pop = new Population(popSize, evaluation_, evaluations_limit_);
+		Population pop = new Population(popSize, evaluation_, evaluations_limit_, isMultimodal);
 		pop.evalPopulation();
 		// Run your algorithm here
 
 	//	int currentEvalstatus = ;
 		while (pop.getEvaluation() < pop.getEvaluationLimit()) {
 //			System.out.println("Hierdan " + pop.getEvaluation() + "/" + evaluations_limit_ );
-			pop = Crossover.evolve(pop);
+			pop = Crossover.evolve(pop, isMultimodal);
 			pop.evalPopulation();
 			
 //			System.out.println("evaluated: ");
