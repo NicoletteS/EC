@@ -42,7 +42,7 @@ public class player1 implements ContestSubmission
 
 		// Change settings(?)
 		if(isMultimodal){
-			// Do sth
+			
 		}else{
 			// Do sth else
 		}
